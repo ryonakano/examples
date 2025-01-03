@@ -4,14 +4,17 @@ project('io.github.myteam.myapp', 'vala', 'c')
 # Include the translations module
 i18n = import('i18n')
 
+# Use different name for gettext
+gettext_name = 'myapp'
+
 # Set our translation domain
-add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
+add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (gettext_name), language:'c')
 
 config_data = configuration_data()
 # Provide a path of the directory where translation binary files (*.mo) are located
 config_data.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
 # Provide translation domain name
-config_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+config_data.set_quoted('GETTEXT_PACKAGE', gettext_name)
 config_file = configure_file(
     input: 'src' / 'Config.vala.in',
     output: '@BASENAME@',
